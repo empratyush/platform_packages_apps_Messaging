@@ -15,6 +15,8 @@
  */
 package com.android.messaging.datamodel;
 
+import static com.android.messaging.NotificationUtilsKt.sendNotificationIfPermissionIsGranted;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -1325,7 +1327,7 @@ public abstract class MessageNotificationState extends NotificationState {
                     }
 
                     if (builder != null) {
-                        notificationManager.notify(
+                        sendNotificationIfPermissionIsGranted(context,
                                 BugleNotifications.buildNotificationTag(
                                         PendingIntentConstants.MSG_SEND_ERROR, null),
                                 PendingIntentConstants.MSG_SEND_ERROR,

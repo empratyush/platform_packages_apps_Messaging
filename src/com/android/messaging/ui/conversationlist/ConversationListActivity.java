@@ -16,6 +16,8 @@
 
 package com.android.messaging.ui.conversationlist;
 
+import static com.android.messaging.NotificationUtilsKt.askNotificationPermissionIfNeeded;
+
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
@@ -48,6 +50,12 @@ public class ConversationListActivity extends AbstractConversationListActivity {
                 getResources().getColor(R.color.action_bar_background_color)));
         actionBar.show();
         super.updateActionBar(actionBar);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        askNotificationPermissionIfNeeded(this);
     }
 
     @Override

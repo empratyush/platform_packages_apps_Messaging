@@ -15,6 +15,8 @@
  */
 package com.android.messaging.sms;
 
+import static com.android.messaging.NotificationUtilsKt.sendNotificationIfPermissionIsGranted;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -79,10 +81,7 @@ public class SmsStorageStatusManager {
         bigTextStyle.bigText(resources.getString(R.string.sms_storage_low_text));
         final Notification notification = bigTextStyle.build();
 
-        final NotificationManagerCompat notificationManager =
-                NotificationManagerCompat.from(Factory.get().getApplicationContext());
-
-        notificationManager.notify(getNotificationTag(),
+        sendNotificationIfPermissionIsGranted(context, getNotificationTag(),
                 PendingIntentConstants.SMS_STORAGE_LOW_NOTIFICATION_ID, notification);
     }
 

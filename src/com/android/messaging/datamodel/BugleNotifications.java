@@ -16,6 +16,8 @@
 
 package com.android.messaging.datamodel;
 
+import static com.android.messaging.NotificationUtilsKt.sendNotificationIfPermissionIsGranted;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -972,8 +974,8 @@ public class BugleNotifications {
 
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
-
-        notificationManager.notify(notificationTag, type, notification);
+        final Context context = Factory.get().getApplicationContext();
+        sendNotificationIfPermissionIsGranted(context, notificationTag, type, notification);
 
         LogUtil.i(TAG, "Notifying for conversation " + conversationId + "; "
                 + "tag = " + notificationTag + ", type = " + type);
@@ -1212,7 +1214,7 @@ public class BugleNotifications {
                 .setSound(UriUtil.getUriForResourceId(context, R.raw.message_failure));
 
         final String tag = context.getPackageName() + ":emergency_sms_error";
-        NotificationManagerCompat.from(context).notify(
+        sendNotificationIfPermissionIsGranted(context,
                 tag,
                 PendingIntentConstants.MSG_SEND_ERROR,
                 builder.build());

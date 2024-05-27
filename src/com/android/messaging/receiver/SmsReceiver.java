@@ -16,6 +16,8 @@
 
 package com.android.messaging.receiver;
 
+import static com.android.messaging.NotificationUtilsKt.sendNotificationIfPermissionIsGranted;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -288,7 +290,7 @@ public final class SmsReceiver extends BroadcastReceiver {
         }
         notification.defaults = defaults;
 
-        notificationManager.notify(getNotificationTag(),
+        sendNotificationIfPermissionIsGranted(context, getNotificationTag(),
                 PendingIntentConstants.SMS_SECONDARY_USER_NOTIFICATION_ID, notification);
     }
 
